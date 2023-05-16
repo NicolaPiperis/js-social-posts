@@ -68,7 +68,8 @@ for (let i = 0; i < posts.length; i++) {
     let postsAuthorName = elAuthor.name;
     let postsAuthorImage = elAuthor.image;
     let postsLikes = postIesimo.likes;
-    let postsCreated = postIesimo.created
+    let postsCreated = postIesimo.created;
+    
 
 
 
@@ -91,7 +92,7 @@ for (let i = 0; i < posts.length; i++) {
     <div class="post__footer">
         <div class="likes js-likes">
             <div class="likes__cta">
-                <a class="like-button  js-like-button" href="#" data-postid="1">
+                <a class="like-button  js-like-button" data-postid="1">
                     <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                     <span class="like-button__label">Mi Piace</span>
                 </a>
@@ -107,19 +108,23 @@ const elContainer = document.getElementById("container").innerHTML += scheda;
 };
 
 // variabili globali
-let elLikesButton = document.querySelectorAll(".like-button");
-console.log(elLikesButton);
+let elLikesButton = document.querySelectorAll(".likes__cta");
+let elLikesButtonText = document.querySelectorAll(".like-button");
 
 let index = 0;
+let totalLikes = 0
 
 for (let i = 0 ; i < elLikesButton.length ; i++) {
-    let elLikesButtonIesimo = elLikesButton[i];
+    let elLikesButtonIesimo = elLikesButtonText[i];
     elLikesButtonIesimo.addEventListener("click",
         function(){
             if(index === i) {
                 elLikesButtonIesimo.style.color = "red" ;
                 index++;
-                i++
+                i++;
+                totalLikes++;
+                console.log(" Hai messo in totale " + totalLikes + " like");
+                
             }
         }
     )
