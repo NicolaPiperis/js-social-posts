@@ -1,3 +1,5 @@
+
+
 const posts = [
     {
         "id": 1,
@@ -55,3 +57,70 @@ const posts = [
         "created": "2021-03-05"
     }
 ];
+
+
+for (let i = 0; i < posts.length; i++) {
+    let postIesimo = posts[i];
+    let elAuthor = postIesimo.author;
+
+    let postsContent = postIesimo.content;
+    let postsMedia = postIesimo.media;
+    let postsAuthorName = elAuthor.name;
+    let postsAuthorImage = elAuthor.image;
+    let postsLikes = postIesimo.likes;
+    let postsCreated = postIesimo.created
+
+
+
+    let scheda = `<div class="post">
+    <div class="post__header">
+        <div class="post-meta">                    
+            <div class="post-meta__icon">
+                <img class="profile-pic" src="${postsAuthorImage}" alt="${postsAuthorName}">                    
+            </div>
+            <div class="post-meta__data">
+                <div class="post-meta__author">${postsAuthorName}</div>
+                <div class="post-meta__time">${postsCreated}</div>
+            </div>                    
+        </div>
+    </div>
+    <div class="post__text">${postsContent}</div>
+    <div class="post__image">
+        <img src="${postsMedia}" alt="">
+    </div>
+    <div class="post__footer">
+        <div class="likes js-likes">
+            <div class="likes__cta">
+                <a class="like-button  js-like-button" href="#" data-postid="1">
+                    <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                    <span class="like-button__label">Mi Piace</span>
+                </a>
+            </div>
+            <div class="likes__counter">
+                Piace a <b id="like-counter-1" class="js-likes-counter">${postsLikes}</b> persone
+            </div>
+        </div> 
+    </div>            
+</div>`
+
+const elContainer = document.getElementById("container").innerHTML += scheda;
+};
+
+// variabili globali
+let elLikesButton = document.querySelectorAll(".like-button");
+console.log(elLikesButton);
+
+let index = 0;
+
+for (let i = 0 ; i < elLikesButton.length ; i++) {
+    let elLikesButtonIesimo = elLikesButton[i];
+    elLikesButtonIesimo.addEventListener("click",
+        function(){
+            if(index === i) {
+                elLikesButtonIesimo.style.color = "red" ;
+                index++;
+                i++
+            }
+        }
+    )
+}
