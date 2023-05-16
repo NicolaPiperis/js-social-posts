@@ -1,5 +1,4 @@
-
-
+// ARRAY DI OGGETTI
 const posts = [
     {
         "id": 1,
@@ -58,36 +57,29 @@ const posts = [
     }
 ];
 
-
 for (let i = 0; i < posts.length; i++) {
     let postIesimo = posts[i];
-    let elAuthor = postIesimo.author;
 
-    let postsContent = postIesimo.content;
-    let postsMedia = postIesimo.media;
-    let postsAuthorName = elAuthor.name;
-    let postsAuthorImage = elAuthor.image;
-    let postsLikes = postIesimo.likes;
-    let postsCreated = postIesimo.created;
-    
+    let {id, content, media, author, created, likes} = postIesimo;
+    let {name, image} = author ;
 
 
-
-    let scheda = `<div class="post">
+    let scheda =
+`<div class="post">
     <div class="post__header">
         <div class="post-meta">                    
             <div class="post-meta__icon">
-                <img class="profile-pic" src="${postsAuthorImage}" alt="${postsAuthorName}">                    
+                <img class="profile-pic" src="${image}" alt="${name}">                    
             </div>
             <div class="post-meta__data">
-                <div class="post-meta__author">${postsAuthorName}</div>
-                <div class="post-meta__time">${postsCreated}</div>
+                <div class="post-meta__author">${name}</div>
+                <div class="post-meta__time">${created}</div>
             </div>                    
         </div>
     </div>
-    <div class="post__text">${postsContent}</div>
+    <div class="post__text">${content}</div>
     <div class="post__image">
-        <img src="${postsMedia}" alt="">
+        <img src="${media}" alt="">
     </div>
     <div class="post__footer">
         <div class="likes js-likes">
@@ -98,7 +90,7 @@ for (let i = 0; i < posts.length; i++) {
                 </a>
             </div>
             <div class="likes__counter">
-                Piace a <b id="like-counter-1" class="js-likes-counter">${postsLikes}</b> persone
+                Piace a <b id="like-counter-1" class="js-likes-counter">${likes}</b> persone
             </div>
         </div> 
     </div>            
@@ -107,25 +99,39 @@ for (let i = 0; i < posts.length; i++) {
 const elContainer = document.getElementById("container").innerHTML += scheda;
 };
 
-// variabili globali
-let elLikesButton = document.querySelectorAll(".likes__cta");
-let elLikesButtonText = document.querySelectorAll(".like-button");
+// VARIABILI GLOBALI
+let elCounter = document.querySelectorAll(".js-likes-counter");
+let arrayLikesButton = document.querySelectorAll(".like-button");
+let arrayId = [];
+let stateLike = false;
 
-let index = 0;
-let totalLikes = 0
+for (let i = 0 ; i < arrayLikesButton.length ; i++) {
 
-for (let i = 0 ; i < elLikesButton.length ; i++) {
-    let elLikesButtonIesimo = elLikesButtonText[i];
-    elLikesButtonIesimo.addEventListener("click",
+    let postIesimo = posts[i];
+    let {likes, id} = postIesimo;
+
+    let arrayLikesButtonIesimo = arrayLikesButton[i];
+
+    arrayLikesButtonIesimo.addEventListener("click",
         function(){
-            if(index === i) {
-                elLikesButtonIesimo.style.color = "red" ;
-                index++;
-                i++;
-                totalLikes++;
-                console.log(" Hai messo in totale " + totalLikes + " like");
-                
+            if( stateLike === false ) {
+                arrayLikesButtonIesimo.classList.add("like-button--liked");
+                stateLike = true;
+                likes++
+                elCounter[i].innerHTML = likes ;
+                console.log(likes);
+                arrayId.push(id);
+                console.log(arrayId);
             }
+            else {
+                arrayLikesButtonIesimo.classList.remove("like-button--liked");
+                stateLike = false;
+                likes--;
+                elCounter[i].innerHTML = likes ;
+                console.log(likes);
+                arrayId.splice(arrayId.indexOf(id), 1);
+            }        
         }
     )
 }
+
