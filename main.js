@@ -57,9 +57,11 @@ const posts = [
     }
 ];
 
+// CICLO E CREAZIONE DELLE SCHEDE 
 for (let i = 0; i < posts.length; i++) {
     let postIesimo = posts[i];
 
+    // DESTRUTTURAZIONE
     let {id, content, media, author, created, likes} = postIesimo;
     let {name, image} = author ;
 
@@ -96,6 +98,7 @@ for (let i = 0; i < posts.length; i++) {
     </div>            
 </div>`
 
+// IMMETTI NELL'HTML
 const elContainer = document.getElementById("container").innerHTML += scheda;
 };
 
@@ -105,8 +108,10 @@ let arrayLikesButton = document.querySelectorAll(".like-button");
 let arrayId = [];
 let stateLike = false;
 
+// CICLO PER RIPETERE AZIONI AL CLICK DEL MI PIACE
 for (let i = 0 ; i < arrayLikesButton.length ; i++) {
 
+    // DESTRUTTURAZIONE
     let postIesimo = posts[i];
     let {likes, id} = postIesimo;
 
@@ -115,20 +120,28 @@ for (let i = 0 ; i < arrayLikesButton.length ; i++) {
     arrayLikesButtonIesimo.addEventListener("click",
         function(){
             if( stateLike === false ) {
+                // CAMBIO COLORE
                 arrayLikesButtonIesimo.classList.add("like-button--liked");
                 stateLike = true;
+                // AUMENTA I MI PIACE
                 likes++
+                // STAMPA IN PAGINA IL NUMERO AGGIORNATO
                 elCounter[i].innerHTML = likes ;
                 console.log(likes);
+                // PUSHA ALL'INTERNO DELL'ARRAY VUOTO CREATO PRECEDENTEMENTE L'ID AL CLICK DEL MI PIACE AL DETERMINATO POST
                 arrayId.push(id);
                 console.log(arrayId);
             }
             else {
+                // RIMUOVI COLORE
                 arrayLikesButtonIesimo.classList.remove("like-button--liked");
                 stateLike = false;
+                // AL CLICK TOGLI IL MI PIACE PRECEDENTEMENTE AGGIUNTO
                 likes--;
+                // STAMPA IN PAGINA IL NUMERO AGGIORNATO
                 elCounter[i].innerHTML = likes ;
                 console.log(likes);
+                // RIMUOVI L'ID DEL'ARRAY CHE HAI PRECEDENTEMENTE PUSHATO AL CLICK DEL MI PIACE
                 arrayId.splice(arrayId.indexOf(id), 1);
             }        
         }
